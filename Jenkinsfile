@@ -9,11 +9,13 @@ pipeline {
             post {
                 failure {
                     mail to: 'breezycodes@gmail.com',
+                    attachLog: true,
                     subject: 'Failed - Build Status',
                     body: "The build has failed, please check configurations."
                 }
                 success {
                     mail to: 'breezycodes@gmail.com',
+                    attachLog: true,
                     subject: 'Success - Build Status',
                     body: "The build has successfully been completed."
                 }
@@ -27,11 +29,13 @@ pipeline {
             post {
                 failure {
                     mail to: 'breezycodes@gmail.com',
+                    attachLog: true,    
                     subject: 'Failed - Unit and Integration Tests',
                     body: "The Unit and Integration Tests has failed, please check configurations."
                 }
                 success {
                     mail to: 'breezycodes@gmail.com',
+                    attachLog: true,   
                     subject: 'Success - Unit and Integration Tests',
                     body: "The Unit and Integration Tests has successfully been completed."
                 }
@@ -42,6 +46,20 @@ pipeline {
             steps {
                 echo 'Analyzing the code using Jenkins and SonarQube'
             }
+            post {
+                failure {
+                    mail to: 'breezycodes@gmail.com',
+                    attachLog: true,    
+                    subject: 'Failed - Code Analysis',
+                    body: "The Code Analysis has failed, please check configurations."
+                }
+                success {
+                    mail to: 'breezycodes@gmail.com',
+                    attachLog: true,   
+                    subject: 'Success - Code Analysis',
+                    body: "The Code Analysis has successfully been completed."
+                }
+            }
         }
         
         stage('Security Scan') {
@@ -51,11 +69,13 @@ pipeline {
             post {
                 failure {
                     mail to: 'breezycodes@gmail.com',
+                    attachLog: true,
                     subject: 'Failed - Security Scan',
                     body: "The Security Scan has failed, please check configurations."
                 }
                 success {
                     mail to: 'breezycodes@gmail.com',
+                    attachLog: true,
                     subject: 'Success - Security Scan',
                     body: "The Security Scan has successfully been completed."
                 }
@@ -66,6 +86,20 @@ pipeline {
             steps {
                 echo 'Deploying the application to an AWS EC2 instance'
             }
+            post {
+                failure {
+                    mail to: 'breezycodes@gmail.com',
+                    attachLog: true,
+                    subject: 'Failed - Deploy to Staging',
+                    body: "Deploy to Staging successfully completed."
+                }
+                success {
+                    mail to: 'breezycodes@gmail.com',
+                    attachLog: true,
+                    subject: 'Success - Deploy to Staging',
+                    body: "Deploy to Staging failed."
+                }
+            }
         }
         
         stage('Integration Tests on Staging') {
@@ -75,11 +109,13 @@ pipeline {
             post {
                 failure {
                     mail to: 'breezycodes@gmail.com',
+                    attachLog: true,
                     subject: 'Failed - Integration Tests on Staging',
                     body: "The Integration Tests on Staging has failed, please check configurations."
                 }
                 success {
                     mail to: 'breezycodes@gmail.com',
+                    attachLog: true,
                     subject: 'Success - Integration Tests on Staging',
                     body: "The Integration Tests on Staging has successfully been completed."
                 }
@@ -89,6 +125,20 @@ pipeline {
         stage('Deploy to Production') {
             steps {
                 echo 'Deploying the application to an AWS EC2 instance'
+            }
+            post {
+                failure {
+                    mail to: 'breezycodes@gmail.com',
+                    attachLog: true,
+                    subject: 'Failed - Deploy to Production',
+                    body: "The Deploy to Production has failed, please check configurations."
+                }
+                success {
+                    mail to: 'breezycodes@gmail.com',
+                    attachLog: true,
+                    subject: 'Success - Deploy to Production',
+                    body: "The Deploy to Production has successfully been completed."
+                }
             }
         }
     }
